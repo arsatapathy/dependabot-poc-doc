@@ -15,6 +15,48 @@ set LOCAL_GITHUB_ACCESS_TOKEN=<access-token>
 ```
 
 ## run update 
+
+```console
+Perform an update job
+
+Usage:
+  dependabot update [<package_manager> <repo> | -f <input.yml>] [flags]
+
+Examples:
+$ dependabot update go_modules rsc/quote
+$ dependabot update -f input.yml
+
+
+Flags:
+  -a, --api-url string            the api dependabot should connect to.
+  -b, --branch string             target branch to update
+      --cache string              cache import/export directory
+      --collector-config string   path to an OpenTelemetry collector config file
+      --commit string             commit to update
+      --debug                     run an interactive shell inside the updater
+      --dep stringArray           dependencies to update
+  -d, --directory string          directory to update (default "/")
+      --extra-hosts stringArray   Docker extra hosts setting on the proxy
+  -f, --file string               path to input file
+      --flamegraph                generate a flamegraph and other metrics
+  -h, --help                      help for update
+      --input-port int            port to use for securely passing input to the updater
+      --local string              local directory to use as fetched source
+  -o, --output string             write scenario to file
+  -p, --provider string           provider of the repository (default "github")
+      --proxy-cert string         path to a certificate the proxy will trust
+      --pull                      pull the image if it isn't present (default true)
+  -t, --timeout duration          max time to run an update
+  -v, --volume stringArray        mount volumes in Docker
+
+Global Flags:
+      --collector-image string   container image to use for the OpenTelemetry collector (default "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest")
+      --proxy-image string       container image to use for the proxy (default "ghcr.io/github/dependabot-update-job-proxy/dependabot-update-job-proxy:latest")
+      --updater-image string     container image to use for the updater
+```
+
+### `dependabot update maven arsatapathy/spring-boot-jdbc-demo`
+
 ```console
 C:\Users\Gudu>dependabot update maven arsatapathy/spring-boot-jdbc-demo
     cli | 2024/05/29 06:15:42 Inserting $LOCAL_GITHUB_ACCESS_TOKEN into credentials
@@ -445,3 +487,7 @@ Bumps [org.springframework.boot:spring-boot-starter-parent](https://github.com/s
 <li>Runtime hint registration for property binding should not fail when parameter information is unavailable <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40486">#40486</a></li>
 <li>ServiceLevelObjectiveBoundary properties cannot be bound in a native image application <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40483">#40483</a></li>
 <li>server.error.include-binding-errors does
+
+
+## Observations
+- Dependabot 
