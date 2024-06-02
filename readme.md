@@ -387,6 +387,8 @@ updater | +---------+-----------------------------------------------------------
 
 
 # Scenarios 
+
+`dependabot update -f job.yaml -o output.yaml`
 ## Scan and update all dependencies to any latest version  
 
 ### job.yaml
@@ -400,9 +402,6 @@ job:
     repo: arsatapathy/spring-boot-jdbc-demo
     directory: /
 ```
-
-### Command
-`dependabot update -f update_to_a_specific_version.yaml -o output.yaml`
 
 ### output.yaml
 ```yaml
