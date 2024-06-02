@@ -422,6 +422,11 @@ input:
             repo: arsatapathy/spring-boot-jdbc-demo
             directory: /
             commit: 23047f72c407aa92249945fc98f128c23d4e1e96
+    credentials:
+        - host: github.com
+          password: $LOCAL_GITHUB_ACCESS_TOKEN
+          type: git_source
+          username: x-access-token
 output:
     - type: update_dependency_list
       expect:
@@ -583,8 +588,91 @@ output:
                   operation: update
                   support_file: false
                   type: file
-            pr-title: bump org.springframework.boot:spring-boot-starter-parent from 2.4.5 to 3.3.0
-            commit-message: bump org.springframework.boot:spring-boot-starter-parent
+            pr-title: Bump org.springframework.boot:spring-boot-starter-parent from 2.4.5 to 3.3.0
+            pr-body: |
+                Bumps [org.springframework.boot:spring-boot-starter-parent](https://github.com/spring-projects/spring-boot) from 2.4.5 to 3.3.0.
+                <details>
+                <summary>Release notes</summary>
+                <p><em>Sourced from <a href="https://github.com/spring-projects/spring-boot/releases">org.springframework.boot:spring-boot-starter-parent's releases</a>.</em></p>
+                <blockquote>
+                <h2>v3.3.0</h2>
+                <h2>:star: New Features</h2>
+                <ul>
+                <li>Add support for descriptions of record components in configuration metadata generation <a href="https://redirect.github.com/spring-projects/spring-boot/pull/29403">#29403</a></li>
+                </ul>
+                <h2>:lady_beetle: Bug Fixes</h2>
+                <ul>
+                <li>gradlew bootBuildImage fails with Podman on macOS Sonoma <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40871">#40871</a></li>
+                <li>Pulsar auth parameters don't properly encode JSON values <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40869">#40869</a></li>
+                <li>When using JPA and ImportTestcontainers, test context may fail to refresh due to &quot;Mapped port can only be obtained after the container is started&quot; <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40863">#40863</a></li>
+                <li>Default MIME mappings are not loaded unless additional mappings are configured <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40860">#40860</a></li>
+                <li>Starting from 3.2.x, <code>@SpyBean</code> is not able to initialise MongoRepository bean of the generic type <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40855">#40855</a></li>
+                <li>Auto-configuration ordering change breaks DocumentReference (in non-reactive MongoTemplate) when depending on mongodb-driver-reactivestreams <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40851">#40851</a></li>
+                <li>Neo4jReactiveDataAutoConfiguration creates incorrectly named bean <a href="https://redirect.github.com/spring-projects/spring-boot/pull/40836">#40836</a></li>
+                <li>Image building fails during cleanup when bind mount has read-only content <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40799">#40799</a></li>
+                <li>Failure Analysis for InvalidConfigurationPropertyValueException is skipped when the property is not set <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40691">#40691</a></li>
+                <li>IllegalArgumentException can be thrown when running an uber jar on a shared drive <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40643">#40643</a></li>
+                <li>setReadTimeout can't be set via Reflective factory on JettyClientHttpRequestFactory <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40638">#40638</a></li>
+                <li>URISyntaxException is raised if the spring boot application is started in a location that contains invalid URI characters <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40616">#40616</a></li>
+                <li>resolveMainClassName fails when building with Gradle using Java 22 <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40613">#40613</a></li>
+                <li>AnsiOutput.detectIfAnsiCapable broken on JDK22 <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40609">#40609</a></li>
+                <li>Help information for spring init's build option has the wrong default <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40606">#40606</a></li>
+                <li>JarUrlConnection.getPermission() can throw NullPointerException if jarFileConnection is null <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40599">#40599</a></li>
+                <li>Whitespace is not correctly trimmed when generating configuration properties metadata from records <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40593">#40593</a></li>
+                <li>In some situations, the failure when the AOT-generated initializer cannot be loaded is less helpful than before <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40584">#40584</a></li>
+                <li>Properties binding eagerly creates superfluous maps <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40561">#40561</a></li>
+                <li>Configuring SSL bundle reload for non-file resource types causes errors that are difficult to diagnose <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40560">#40560</a></li>
+                <li>spring-boot-dependencies cannot be used with repositories that ban com.oracle.database.jdbc:ojdbc-bom <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40535">#40535</a></li>
+                <li>Buildpacks do not support Docker with containerd image store <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40526">#40526</a></li>
+                <li>SpringBootMockMvcBuilderCustomizer can crash cryptically while collecting data that it would have discarded anyway <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40517">#40517</a></li>
+                <li>Containers not shut down between tests when using .withReuse(true) but env. does not support reuse (e.g. CI builds) <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40509">#40509</a></li>
+                <li>CookieSameSiteSupplier influences session cookie <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40501">#40501</a></li>
+                <li><code>&lt;springProperty&gt;</code> and <code>&lt;springProfile&gt;</code> do not work in <code>&lt;include&gt;</code> after Logback upgrade <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40491">#40491</a></li>
+                <li>Runtime hint registration for property binding should not fail when parameter information is unavailable <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40486">#40486</a></li>
+                <li>ServiceLevelObjectiveBoundary properties cannot be bound in a native image application <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40483">#40483</a></li>
+                <li>server.error.include-binding-errors does not recognize MethodValidationResult exceptions <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40474">#40474</a></li>
+                <li>spring.data.redis.cluster.nodes and spring.data.redis.sentinel.nodes do not handle IPv6 addresses correctly <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40467">#40467</a></li>
+                <li>Using relative paths to describe the classpath in the error message from ResolveMainClassName hinders problem diagnosis <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40465">#40465</a></li>
+                <li>Jartools extract command doesn't extract all files from META-INF <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40456">#40456</a></li>
+                <li>Native image doesn't start and doesn't log anything if an environment post processor throws an exception <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40451">#40451</a></li>
+                <li>Unlike DataSourceAutoConfiguration, DevToolsDataSourceAutoConfiguration assumes that javax.sql.DataSource will always be available <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40441">#40441</a></li>
+                </ul>
+                <h2>:notebook_with_decorative_cover: Documentation</h2>
+                <ul>
+                <li>Improve graceful shutdown documentation to remove ambiguity <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40846">#40846</a></li>
+                <li>Document ways to opt out from immutable <code>@ConfigurationProperties</code> binding with single constructor <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40844">#40844</a></li>
+                <li>Document that a custom HttpMessageConverters bean can be used to reorder json message converters when needed <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40839">#40839</a></li>
+                <li>Address ambiguity now that Testcontainers has two classes named KafkaContainer <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40756">#40756</a></li>
+                <li>Publish API documentation for Spring Boot's Kotlin APIs <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40692">#40692</a></li>
+                <li>Fix typo in features doc <a href="https://redirect.github.com/spring-projects/spring-boot/pull/40631">#40631</a></li>
+                </ul>
+                <!-- raw HTML omitted -->
+                </blockquote>
+                <p>... (truncated)</p>
+                </details>
+                <details>
+                <summary>Commits</summary>
+                <ul>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/a25e1ebe41bc02c5e7341ed1464d61c496cffe7c"><code>a25e1eb</code></a> Release v3.3.0</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/ed0a3fd90845ebfa6a851c7c5d712a0ba0dcaa69"><code>ed0a3fd</code></a> Update publish-to-sdkman job to make new candidates the default</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/42d6f2c7a85690a444c1555fea2d72f3576f6d0b"><code>42d6f2c</code></a> Merge branch '3.2.x'</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/234e0fd1f395ed284cd8b4726c9b73d695c28b27"><code>234e0fd</code></a> Stop mark 3.2.x as the default SDKman release</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/226b900babb25112e0ef0dcb02e2c06ce18564dd"><code>226b900</code></a> Merge branch '3.2.x'</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/c857eb62d483865bc260ea1becab4bb456468772"><code>c857eb6</code></a> Fix SDKman &quot;make default&quot; step</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/13e13f91c09f5012eb3bc61d39455ae5d4b43eff"><code>13e13f9</code></a> Merge branch '3.2.x'</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/a5ee37c5262270a8d6a0e898a441f35677310d59"><code>a5ee37c</code></a> Next development version (v3.2.7-SNAPSHOT)</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/dffdd6d67ca0f1b46cf2645439a3552fa6c5f5d2"><code>dffdd6d</code></a> Explicitly set SDKman's make-default to false</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/86c206a849b746127be234ec3febd5eac5fc357e"><code>86c206a</code></a> Merge branch '3.2.x'</li>
+                <li>Additional commits viewable in <a href="https://github.com/spring-projects/spring-boot/compare/v2.4.5...v3.3.0">compare view</a></li>
+                </ul>
+                </details>
+                <br />
+            commit-message: |-
+                Bump org.springframework.boot:spring-boot-starter-parent
+
+                Bumps [org.springframework.boot:spring-boot-starter-parent](https://github.com/spring-projects/spring-boot) from 2.4.5 to 3.3.0.
+                - [Release notes](https://github.com/spring-projects/spring-boot/releases)
+                - [Commits](https://github.com/spring-projects/spring-boot/compare/v2.4.5...v3.3.0)
     - type: create_pull_request
       expect:
         data:
