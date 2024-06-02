@@ -386,108 +386,305 @@ updater | +---------+-----------------------------------------------------------
 ```
 
 
-spring PR
+# Scenarios 
+## Scan and update to any latest version  
 
-```json
-{
-  "data": {
-    "base-commit-sha": "44ffb2cada3b43e49bcfe8ca14651903022afc01",
-    "dependencies": [
-      {
-        "name": "org.springframework.boot:spring-boot-starter-parent",
-        "previous-requirements": [
-          {
-            "file": "pom.xml",
-            "groups": [],
-            "metadata": {
-              "packaging_type": "pom"
-            },
-            "requirement": "2.4.5",
-            "source": null
-          }
-        ],
-        "previous-version": "2.4.5",
-        "requirements": [
-          {
-            "file": "pom.xml",
-            "groups": [],
-            "metadata": {
-              "packaging_type": "pom"
-            },
-            "requirement": "3.3.0",
-            "source": {
-              "type": "maven_repo",
-              "url": "https://repo.maven.apache.org/maven2"
-            }
-          }
-        ],
-        "version": "3.3.0"
-      }
-    ],
-    "updated-dependency-files": [
-      {
-        "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n\txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\n\t<modelVersion>4.0.0</modelVersion>\n\t<parent>\n\t\t<groupId>org.springframework.boot</groupId>\n\t\t<artifactId>spring-boot-starter-parent</artifactId>\n\t\t<version>3.3.0</version>\n\t\t<relativePath/> <!-- lookup parent from repository -->\n\t</parent>\n\t<groupId>com.arsatapathy</groupId>\n\t<artifactId>spring-boot-jdbc-demo</artifactId>\n\t<version>0.0.1-SNAPSHOT</version>\n\t<name>spring-boot-jdbc-demo</name>\n\t<description>Demo Project for Spring Boot</description>\n\t<properties>\n\t\t<java.version>16</java.version>\n\t</properties>\n\t<dependencies>\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t<artifactId>spring-boot-starter-web</artifactId>\n\t\t</dependency>\n\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t<artifactId>spring-boot-starter-test</artifactId>\n\t\t\t<scope>test</scope>\n\t\t</dependency>\n\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t<artifactId>spring-boot-starter-log4j2</artifactId>\n\t\t</dependency>\n\n\t\t<dependency>\n\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t<artifactId>spring-boot-starter-jdbc</artifactId>\n\t\t</dependency>\n\n\t\t<dependency>\n\t\t\t<groupId>com.oracle.database.jdbc</groupId>\n\t\t\t<artifactId>ojdbc8</artifactId>\n\t\t\t<version>21.13.0.0</version>\n\t\t</dependency>\n\t</dependencies>\n\n\t<build>\n\t\t<plugins>\n\t\t\t<plugin>\n\t\t\t\t<groupId>org.springframework.boot</groupId>\n\t\t\t\t<artifactId>spring-boot-maven-plugin</artifactId>\n\t\t\t</plugin>\n\t\t</plugins>\n\t</build>\n\n</project>\n",
-        "content_encoding": "utf-8",
-        "deleted": false,
-        "directory": "/",
-        "name": "pom.xml",
-        "operation": "update",
-        "support_file": false,
-        "type": "file",
-        "mode": ""
-      }
-    ],
-    "pr-title": "Bump org.springframework.boot:spring-boot-starter-parent from 2.4.5 to 3.3.0",
-    "pr-body": "Bumps [org.springframework.boot:spring-boot-starter-parent](https://github.com/spring-projects/spring-boot) from 2.4.5 to 3.3.0.\n\n**Release notes**\n\n**v3.3.0**\n\n**:star: New Features**\n- Add support for descriptions of record components in configuration metadata generation [#29403](https://redirect.github.com/spring-projects/spring-boot/pull/29403)\n\n**:lady_beetle: Bug Fixes**\n- gradlew bootBuildImage fails with Podman on macOS Sonoma [#40871](https://redirect.github.com/spring-projects/spring-boot/issues/40871)\n- Pulsar auth parameters don't properly encode JSON values [#40869](https://redirect.github.com/spring-projects/spring-boot/issues/40869)\n- When using JPA and ImportTestcontainers, test context may fail to refresh due to \"Mapped port can only be obtained after the container is started\" [#40863](https://redirect.github.com/spring-projects/spring-boot/issues/40863)\n- Default MIME mappings are not loaded unless additional mappings are configured [#40860](https://redirect.github.com/spring-projects/spring-boot/issues/40860)\n- Starting from 3.2.x, `@SpyBean` is not able to initialise MongoRepository bean of the generic type [#40855](https://redirect.github.com/spring-projects/spring-boot/issues/40855)\n- Auto-configuration ordering change breaks DocumentReference (in non-reactive MongoTemplate) when depending on mongodb-driver-reactivestreams [#40851](https://redirect.github.com/spring-projects/spring-boot/issues/40851)\n- Neo4jReactiveDataAutoConfiguration creates incorrectly named bean [#40836](https://redirect.github.com/spring-projects/spring-boot/pull/40836)\n- Image building fails during cleanup when bind mount has read-only content [#40799](https://redirect.github.com/spring-projects/spring-boot/issues/40799)\n- Failure Analysis for InvalidConfigurationPropertyValueException is skipped when the property is not set [#40691](https://redirect.github.com/spring-projects/spring-boot/issues/40691)\n- IllegalArgumentException can be thrown when running an uber jar on a shared drive [#40643](https://redirect.github.com/spring-projects/spring-boot/issues/40643)\n- setReadTimeout can't be set via Reflective factory on JettyClientHttpRequestFactory [#40638](https://redirect.github.com/spring-projects/spring-boot/issues/40638)\n- URISyntaxException is raised if the spring boot application is started in a location that contains invalid URI characters [#40616](https://redirect.github.com/spring-projects
-
+### job.yaml
+```yaml
+job:
+  package-manager: maven
+  allowed-updates:
+    - update-type: all
+  source:
+    provider: github
+    repo: arsatapathy/spring-boot-jdbc-demo
+    directory: /
 ```
 
-## pr-body
----
+### Command
+`dependabot update -f update_to_a_specific_version.yaml -o output.yaml`
 
-Bumps [org.springframework.boot:spring-boot-starter-parent](https://github.com/spring-projects/spring-boot) from 2.4.5 to 3.3.0.
+### output.yaml
+```yaml
+input:
+    job:
+        package-manager: maven
+        allowed-updates:
+            - update-type: all
+        ignore-conditions:
+            - dependency-name: org.springframework.boot:spring-boot-starter-parent
+              source: output.yml
+              version-requirement: '>3.3.0'
+            - dependency-name: com.oracle.database.jdbc:ojdbc8
+              source: output.yml
+              version-requirement: '>23.4.0.24.05'
+        source:
+            provider: github
+            repo: arsatapathy/spring-boot-jdbc-demo
+            directory: /
+            commit: 23047f72c407aa92249945fc98f128c23d4e1e96
+output:
+    - type: update_dependency_list
+      expect:
+        data:
+            dependencies:
+                - name: org.springframework.boot:spring-boot-starter-parent
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: pom
+                      requirement: 2.4.5
+                      source: null
+                  version: 2.4.5
+                - name: org.springframework.boot:spring-boot-starter-web
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: org.springframework.boot:spring-boot-starter-test
+                  requirements:
+                    - file: pom.xml
+                      groups:
+                        - test
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: org.springframework.boot:spring-boot-starter-log4j2
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: org.springframework.boot:spring-boot-starter-jdbc
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: com.oracle.database.jdbc:ojdbc8
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: 21.13.0.0
+                      source: null
+                  version: 21.13.0.0
+                - name: org.springframework.boot:spring-boot-maven-plugin
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+            dependency_files:
+                - /pom.xml
+    - type: create_pull_request
+      expect:
+        data:
+            base-commit-sha: 23047f72c407aa92249945fc98f128c23d4e1e96
+            dependencies:
+                - name: org.springframework.boot:spring-boot-starter-parent
+                  previous-requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: pom
+                      requirement: 2.4.5
+                      source: null
+                  previous-version: 2.4.5
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: pom
+                      requirement: 3.3.0
+                      source:
+                        type: maven_repo
+                        url: https://repo.maven.apache.org/maven2
+                  version: 3.3.0
+            updated-dependency-files:
+                - content: |
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+                    	<modelVersion>4.0.0</modelVersion>
+                    	<parent>
+                    		<groupId>org.springframework.boot</groupId>
+                    		<artifactId>spring-boot-starter-parent</artifactId>
+                    		<version>3.3.0</version>
+                    		<relativePath/> <!-- lookup parent from repository -->
+                    	</parent>
+                    	<groupId>com.arsatapathy</groupId>
+                    	<artifactId>spring-boot-jdbc-demo</artifactId>
+                    	<version>0.0.1-SNAPSHOT</version>
+                    	<name>spring-boot-jdbc-demo</name>
+                    	<description>Demo Project for Spring Boot</description>
+                    	<properties>
+                    		<java.version>16</java.version>
+                    	</properties>
+                    	<dependencies>
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-web</artifactId>
+                    		</dependency>
 
-<details>
-<summary>Release notes</summary>
-<p><em>Sourced from <a href="https://github.com/spring-projects/spring-boot/releases">org.springframework.boot:spring-boot-starter-parent's releases</a>.</em></p>
-<blockquote>
-<h2>v3.3.0</h2>
-<h2>:star: New Features</h2>
-<ul>
-<li>Add support for descriptions of record components in configuration metadata generation <a href="https://redirect.github.com/spring-projects/spring-boot/pull/29403">#29403</a></li>
-</ul>
-<h2>:lady_beetle: Bug Fixes</h2>
-<ul>
-<li>gradlew bootBuildImage fails with Podman on macOS Sonoma <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40871">#40871</a></li>
-<li>Pulsar auth parameters don't properly encode JSON values <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40869">#40869</a></li>
-<li>When using JPA and ImportTestcontainers, test context may fail to refresh due to "Mapped port can only be obtained after the container is started" <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40863">#40863</a></li>
-<li>Default MIME mappings are not loaded unless additional mappings are configured <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40860">#40860</a></li>
-<li>Starting from 3.2.x, <code>@SpyBean</code> is not able to initialise MongoRepository bean of the generic type <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40855">#40855</a></li>
-<li>Auto-configuration ordering change breaks DocumentReference (in non-reactive MongoTemplate) when depending on mongodb-driver-reactivestreams <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40851">#40851</a></li>
-<li>Neo4jReactiveDataAutoConfiguration creates incorrectly named bean <a href="https://redirect.github.com/spring-projects/spring-boot/pull/40836">#40836</a></li>
-<li>Image building fails during cleanup when bind mount has read-only content <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40799">#40799</a></li>
-<li>Failure Analysis for InvalidConfigurationPropertyValueException is skipped when the property is not set <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40691">#40691</a></li>
-<li>IllegalArgumentException can be thrown when running an uber jar on a shared drive <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40643">#40643</a></li>
-<li>setReadTimeout can't be set via Reflective factory on JettyClientHttpRequestFactory <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40638">#40638</a></li>
-<li>URISyntaxException is raised if the spring boot application is started in a location that contains invalid URI characters <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40616">#40616</a></li>
-<li>resolveMainClassName fails when building with Gradle using Java 22 <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40613">#40613</a></li>
-<li>AnsiOutput.detectIfAnsiCapable broken on JDK22 <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40609">#40609</a></li>
-<li>Help information for spring init's build option has the wrong default <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40606">#40606</a></li>
-<li>JarUrlConnection.getPermission() can throw NullPointerException if jarFileConnection is null <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40599">#40599</a></li>
-<li>Whitespace is not correctly trimmed when generating configuration properties metadata from records <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40593">#40593</a></li>
-<li>In some situations, the failure when the AOT-generated initializer cannot be loaded is less helpful than before <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40584">#40584</a></li>
-<li>Properties binding eagerly creates superfluous maps <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40561">#40561</a></li>
-<li>Configuring SSL bundle reload for non-file resource types causes errors that are difficult to diagnose <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40560">#40560</a></li>
-<li>spring-boot-dependencies cannot be used with repositories that ban com.oracle.database.jdbc:ojdbc-bom <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40535">#40535</a></li>
-<li>Buildpacks do not support Docker with containerd image store <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40526">#40526</a></li>
-<li>SpringBootMockMvcBuilderCustomizer can crash cryptically while collecting data that it would have discarded anyway <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40517">#40517</a></li>
-<li>Containers not shut down between tests when using .withReuse(true) but env. does not support reuse (e.g. CI builds) <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40509">#40509</a></li>
-<li>CookieSameSiteSupplier influences session cookie <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40501">#40501</a></li>
-<li><code>&lt;springProperty&gt;</code> and <code>&lt;springProfile&gt;</code> do not work in <code>&lt;include&gt;</code> after Logback upgrade <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40491">#40491</a></li>
-<li>Runtime hint registration for property binding should not fail when parameter information is unavailable <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40486">#40486</a></li>
-<li>ServiceLevelObjectiveBoundary properties cannot be bound in a native image application <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40483">#40483</a></li>
-<li>server.error.include-binding-errors does
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-test</artifactId>
+                    			<scope>test</scope>
+                    		</dependency>
 
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-log4j2</artifactId>
+                    		</dependency>
 
-## Observations
-- Dependabot 
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-jdbc</artifactId>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>com.oracle.database.jdbc</groupId>
+                    			<artifactId>ojdbc8</artifactId>
+                    			<version>21.13.0.0</version>
+                    		</dependency>
+                    	</dependencies>
+
+                    	<build>
+                    		<plugins>
+                    			<plugin>
+                    				<groupId>org.springframework.boot</groupId>
+                    				<artifactId>spring-boot-maven-plugin</artifactId>
+                    			</plugin>
+                    		</plugins>
+                    	</build>
+
+                    </project>
+                  content_encoding: utf-8
+                  deleted: false
+                  directory: /
+                  name: pom.xml
+                  operation: update
+                  support_file: false
+                  type: file
+            pr-title: bump org.springframework.boot:spring-boot-starter-parent from 2.4.5 to 3.3.0
+            commit-message: bump org.springframework.boot:spring-boot-starter-parent
+    - type: create_pull_request
+      expect:
+        data:
+            base-commit-sha: 23047f72c407aa92249945fc98f128c23d4e1e96
+            dependencies:
+                - name: com.oracle.database.jdbc:ojdbc8
+                  previous-requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: 21.13.0.0
+                      source: null
+                  previous-version: 21.13.0.0
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: 23.4.0.24.05
+                      source:
+                        type: maven_repo
+                        url: https://repo.maven.apache.org/maven2
+                  version: 23.4.0.24.05
+            updated-dependency-files:
+                - content: |
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+                    	<modelVersion>4.0.0</modelVersion>
+                    	<parent>
+                    		<groupId>org.springframework.boot</groupId>
+                    		<artifactId>spring-boot-starter-parent</artifactId>
+                    		<version>2.4.5</version>
+                    		<relativePath/> <!-- lookup parent from repository -->
+                    	</parent>
+                    	<groupId>com.arsatapathy</groupId>
+                    	<artifactId>spring-boot-jdbc-demo</artifactId>
+                    	<version>0.0.1-SNAPSHOT</version>
+                    	<name>spring-boot-jdbc-demo</name>
+                    	<description>Demo Project for Spring Boot</description>
+                    	<properties>
+                    		<java.version>16</java.version>
+                    	</properties>
+                    	<dependencies>
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-web</artifactId>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-test</artifactId>
+                    			<scope>test</scope>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-log4j2</artifactId>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-jdbc</artifactId>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>com.oracle.database.jdbc</groupId>
+                    			<artifactId>ojdbc8</artifactId>
+                    			<version>23.4.0.24.05</version>
+                    		</dependency>
+                    	</dependencies>
+
+                    	<build>
+                    		<plugins>
+                    			<plugin>
+                    				<groupId>org.springframework.boot</groupId>
+                    				<artifactId>spring-boot-maven-plugin</artifactId>
+                    			</plugin>
+                    		</plugins>
+                    	</build>
+
+                    </project>
+                  content_encoding: utf-8
+                  deleted: false
+                  directory: /
+                  name: pom.xml
+                  operation: update
+                  support_file: false
+                  type: file
+            pr-title: bump com.oracle.database.jdbc:ojdbc8 from 21.13.0.0 to 23.4.0.24.05
+            pr-body: |
+                Bumps com.oracle.database.jdbc:ojdbc8 from 21.13.0.0 to 23.4.0.24.05.
+            commit-message: |-
+                bump com.oracle.database.jdbc:ojdbc8 from 21.13.0.0 to 23.4.0.24.05
+
+                Bumps com.oracle.database.jdbc:ojdbc8 from 21.13.0.0 to 23.4.0.24.05.
+    - type: mark_as_processed
+      expect:
+        data:
+            base-commit-sha: 23047f72c407aa92249945fc98f128c23d4e1e96
+```
