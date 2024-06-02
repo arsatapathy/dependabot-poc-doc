@@ -387,7 +387,7 @@ updater | +---------+-----------------------------------------------------------
 
 
 # Scenarios 
-## Scan and update to any latest version  
+## Scan and update all dependencies to any latest version  
 
 ### job.yaml
 ```yaml
@@ -683,6 +683,207 @@ output:
                 bump com.oracle.database.jdbc:ojdbc8 from 21.13.0.0 to 23.4.0.24.05
 
                 Bumps com.oracle.database.jdbc:ojdbc8 from 21.13.0.0 to 23.4.0.24.05.
+    - type: mark_as_processed
+      expect:
+        data:
+            base-commit-sha: 23047f72c407aa92249945fc98f128c23d4e1e96
+```
+
+## Scan and update specific dependencies to any latest version  
+
+### job.yaml
+```yaml
+job:
+  package-manager: maven
+  allowed-updates:
+    - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+      update-type: "all"  # Ensures all types of updates are allowed for this dependency
+  source:
+    provider: github
+    repo: arsatapathy/spring-boot-jdbc-demo
+    directory: "/"
+```
+
+### output.yaml
+```yaml
+input:
+    job:
+        package-manager: maven
+        allowed-updates:
+            - dependency-name: org.springframework.boot:spring-boot-starter-parent
+              update-type: all
+        ignore-conditions:
+            - dependency-name: org.springframework.boot:spring-boot-starter-parent
+              source: output.yml
+              version-requirement: '>3.3.0'
+        source:
+            provider: github
+            repo: arsatapathy/spring-boot-jdbc-demo
+            directory: /
+            commit: 23047f72c407aa92249945fc98f128c23d4e1e96
+output:
+    - type: update_dependency_list
+      expect:
+        data:
+            dependencies:
+                - name: org.springframework.boot:spring-boot-starter-parent
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: pom
+                      requirement: 2.4.5
+                      source: null
+                  version: 2.4.5
+                - name: org.springframework.boot:spring-boot-starter-web
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: org.springframework.boot:spring-boot-starter-test
+                  requirements:
+                    - file: pom.xml
+                      groups:
+                        - test
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: org.springframework.boot:spring-boot-starter-log4j2
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: org.springframework.boot:spring-boot-starter-jdbc
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+                - name: com.oracle.database.jdbc:ojdbc8
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: 21.13.0.0
+                      source: null
+                  version: 21.13.0.0
+                - name: org.springframework.boot:spring-boot-maven-plugin
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: jar
+                      requirement: null
+                      source: null
+                  version: null
+            dependency_files:
+                - /pom.xml
+    - type: create_pull_request
+      expect:
+        data:
+            base-commit-sha: 23047f72c407aa92249945fc98f128c23d4e1e96
+            dependencies:
+                - name: org.springframework.boot:spring-boot-starter-parent
+                  previous-requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: pom
+                      requirement: 2.4.5
+                      source: null
+                  previous-version: 2.4.5
+                  requirements:
+                    - file: pom.xml
+                      groups: []
+                      metadata:
+                        packaging_type: pom
+                      requirement: 3.3.0
+                      source:
+                        type: maven_repo
+                        url: https://repo.maven.apache.org/maven2
+                  version: 3.3.0
+            updated-dependency-files:
+                - content: |
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+                    	<modelVersion>4.0.0</modelVersion>
+                    	<parent>
+                    		<groupId>org.springframework.boot</groupId>
+                    		<artifactId>spring-boot-starter-parent</artifactId>
+                    		<version>3.3.0</version>
+                    		<relativePath/> <!-- lookup parent from repository -->
+                    	</parent>
+                    	<groupId>com.arsatapathy</groupId>
+                    	<artifactId>spring-boot-jdbc-demo</artifactId>
+                    	<version>0.0.1-SNAPSHOT</version>
+                    	<name>spring-boot-jdbc-demo</name>
+                    	<description>Demo Project for Spring Boot</description>
+                    	<properties>
+                    		<java.version>16</java.version>
+                    	</properties>
+                    	<dependencies>
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-web</artifactId>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-test</artifactId>
+                    			<scope>test</scope>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-log4j2</artifactId>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>org.springframework.boot</groupId>
+                    			<artifactId>spring-boot-starter-jdbc</artifactId>
+                    		</dependency>
+
+                    		<dependency>
+                    			<groupId>com.oracle.database.jdbc</groupId>
+                    			<artifactId>ojdbc8</artifactId>
+                    			<version>21.13.0.0</version>
+                    		</dependency>
+                    	</dependencies>
+
+                    	<build>
+                    		<plugins>
+                    			<plugin>
+                    				<groupId>org.springframework.boot</groupId>
+                    				<artifactId>spring-boot-maven-plugin</artifactId>
+                    			</plugin>
+                    		</plugins>
+                    	</build>
+
+                    </project>
+                  content_encoding: utf-8
+                  deleted: false
+                  directory: /
+                  name: pom.xml
+                  operation: update
+                  support_file: false
+                  type: file
+            pr-title: bump org.springframework.boot:spring-boot-starter-parent from 2.4.5 to 3.3.0
+            commit-message: bump org.springframework.boot:spring-boot-starter-parent
     - type: mark_as_processed
       expect:
         data:
