@@ -923,6 +923,11 @@ input:
             repo: arsatapathy/spring-boot-jdbc-demo
             directory: /
             commit: 23047f72c407aa92249945fc98f128c23d4e1e96
+    credentials:
+        - host: github.com
+          password: $LOCAL_GITHUB_ACCESS_TOKEN
+          type: git_source
+          username: x-access-token
 output:
     - type: update_dependency_list
       expect:
@@ -1084,8 +1089,91 @@ output:
                   operation: update
                   support_file: false
                   type: file
-            pr-title: bump org.springframework.boot:spring-boot-starter-parent from 2.4.5 to 3.2.6
-            commit-message: bump org.springframework.boot:spring-boot-starter-parent
+            pr-title: Bump org.springframework.boot:spring-boot-starter-parent from 2.4.5 to 3.2.6
+            pr-body: |
+                Bumps [org.springframework.boot:spring-boot-starter-parent](https://github.com/spring-projects/spring-boot) from 2.4.5 to 3.2.6.
+                <details>
+                <summary>Release notes</summary>
+                <p><em>Sourced from <a href="https://github.com/spring-projects/spring-boot/releases">org.springframework.boot:spring-boot-starter-parent's releases</a>.</em></p>
+                <blockquote>
+                <h2>v3.2.6</h2>
+                <h2>:lady_beetle: Bug Fixes</h2>
+                <ul>
+                <li>Image building fails during cleanup when bind mount has read-only content <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40760">#40760</a></li>
+                <li>Failure Analysis for InvalidConfigurationPropertyValueException is skipped when the property is not set <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40690">#40690</a></li>
+                <li>setReadTimeout can't be set via Reflective factory on JettyClientHttpRequestFactory <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40635">#40635</a></li>
+                <li>URISyntaxException is raised if the spring boot application is started in a location that contains invalid URI characters <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40615">#40615</a></li>
+                <li>Help information for spring init's build option has the wrong default <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40605">#40605</a></li>
+                <li>When using JPA and ImportTestcontainers, test context may fail to refresh due to &quot;Mapped port can only be obtained after the container is started&quot; <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40585">#40585</a></li>
+                <li>IllegalArgumentException can be thrown when running an uber jar on a shared drive <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40549">#40549</a></li>
+                <li>spring-boot-dependencies cannot be used with repositories that ban com.oracle.database.jdbc:ojdbc-bom <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40534">#40534</a></li>
+                <li>SpringBootMockMvcBuilderCustomizer can crash cryptically while collecting data that it would have discarded anyway <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40516">#40516</a></li>
+                <li>Containers not shut down between tests when using .withReuse(true) but env. does not support reuse (e.g. CI builds) <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40508">#40508</a></li>
+                <li>Pulsar auth parameters don't properly encode JSON values <a href="https://redirect.github.com/spring-projects/spring-boot/pull/40493">#40493</a></li>
+                <li>Runtime hint registration for property binding should not fail when parameter information is unavailable <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40485">#40485</a></li>
+                <li>ServiceLevelObjectiveBoundary properties cannot be bound in a native image application <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40482">#40482</a></li>
+                <li>spring.data.redis.cluster.nodes and spring.data.redis.sentinel.nodes do not handle IPv6 addresses correctly <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40466">#40466</a></li>
+                <li>Using relative paths to describe the classpath in the error message from ResolveMainClassName hinders problem diagnosis <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40464">#40464</a></li>
+                <li>Native image doesn't start and doesn't log anything if an environment post processor throws an exception <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40450">#40450</a></li>
+                <li>Unlike DataSourceAutoConfiguration, DevToolsDataSourceAutoConfiguration assumes that javax.sql.DataSource will always be available <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40440">#40440</a></li>
+                <li>Starting from 3.2.x, <code>@SpyBean</code> is not able to initialise MongoRepository bean of the generic type <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40234">#40234</a></li>
+                <li>AnsiOutput.detectIfAnsiCapable broken on JDK22 <a href="https://redirect.github.com/spring-projects/spring-boot/pull/40172">#40172</a></li>
+                <li>Buildpacks do not support Docker with containerd image store <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40100">#40100</a></li>
+                <li>resolveMainClassName fails when building with Gradle using Java 22 <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40074">#40074</a></li>
+                <li>server.error.include-binding-errors does not recognize MethodValidationResult exceptions <a href="https://redirect.github.com/spring-projects/spring-boot/pull/39865">#39865</a></li>
+                <li>JarUrlConnection.getPermission() can throw NullPointerException if jarFileConnection is null <a href="https://redirect.github.com/spring-projects/spring-boot/pull/39856">#39856</a></li>
+                <li>gradlew bootBuildImage fails with Podman on macOS Sonoma <a href="https://redirect.github.com/spring-projects/spring-boot/issues/39830">#39830</a></li>
+                <li>CookieSameSiteSupplier influences session cookie <a href="https://redirect.github.com/spring-projects/spring-boot/issues/39766">#39766</a></li>
+                <li>Auto-configuration ordering change breaks DocumentReference (in non-reactive MongoTemplate) when depending on mongodb-driver-reactivestreams <a href="https://redirect.github.com/spring-projects/spring-boot/issues/39405">#39405</a></li>
+                <li>Properties binding eagerly creates superfluous maps <a href="https://redirect.github.com/spring-projects/spring-boot/issues/39375">#39375</a></li>
+                <li>Configuring SSL bundle reload for non-file resource types causes errors that are difficult to diagnose <a href="https://redirect.github.com/spring-projects/spring-boot/issues/38903">#38903</a></li>
+                <li>In some situations, the failure when the AOT-generated initializer cannot be loaded is less helpful than before <a href="https://redirect.github.com/spring-projects/spring-boot/issues/38645">#38645</a></li>
+                </ul>
+                <h2>:notebook_with_decorative_cover: Documentation</h2>
+                <ul>
+                <li>Improve graceful shutdown documentation to remove ambiguity <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40845">#40845</a></li>
+                <li>Document ways to opt out from immutable <code>@ConfigurationProperties</code> binding with single constructor <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40843">#40843</a></li>
+                <li>Document that a custom HttpMessageConverters bean can be used to reorder json message converters when needed <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40838">#40838</a></li>
+                <li>Address ambiguity now that Testcontainers has two classes named KafkaContainer <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40699">#40699</a></li>
+                <li>Clarify devtools restart class loader <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40607">#40607</a></li>
+                <li>Note that spring-boot-docker-compose is excluded by default from packaged jars <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40564">#40564</a></li>
+                <li>Clarify docs around spring.jpa.generate-ddl <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40522">#40522</a></li>
+                <li>Clarify the directory that's used by default to find Docker Compose compose.yaml <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40514">#40514</a></li>
+                <li>Clarify that all named properties must match for <code>@ConditionalOnProperty</code> to match <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40470">#40470</a></li>
+                <li>Links to Spring Batch javadoc for EnableBatchProcessing and DefaultBatchConfiguration are broken <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40468">#40468</a></li>
+                <li>Suggest testAndDevelopmentOnly configuration when using Docker Compose support in tests <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40171">#40171</a></li>
+                </ul>
+                <h2>:hammer: Dependency Upgrades</h2>
+                <ul>
+                <li>Upgrade to Byte Buddy 1.14.16 <a href="https://redirect.github.com/spring-projects/spring-boot/issues/40877">#40877</a></li>
+                </ul>
+                <!-- raw HTML omitted -->
+                </blockquote>
+                <p>... (truncated)</p>
+                </details>
+                <details>
+                <summary>Commits</summary>
+                <ul>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/106ae499ca2ac2150bf5e4e72b0dfa3bff359c97"><code>106ae49</code></a> Release v3.2.6</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/f9c10f31154c69b402d2be4202421a0433c0fb2c"><code>f9c10f3</code></a> Merge branch '3.1.x' into 3.2.x</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/6b0f8756d5fc3dd3203abcb3707ad9e160a17e96"><code>6b0f875</code></a> Next development version (v3.1.13-SNAPSHOT)</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/e77ffd819a73cd423969ef7b4620a8f57e930b02"><code>e77ffd8</code></a> Upgrade to Spring Framework 6.1.8</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/477cdcae21f2e5f973059924aaef7791c7380df7"><code>477cdca</code></a> Upgrade to Spring Batch 5.1.2</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/6ca3db067d46be93a7a826e23643e72cc49a8908"><code>6ca3db0</code></a> Upgrade to Netty 4.1.110.Final</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/0ffd7e6910a5113564264d98bb0e1773b121d457"><code>0ffd7e6</code></a> Upgrade to Byte Buddy 1.14.16</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/9437ab96f415c05623e0450b7aca0ea585099b24"><code>9437ab9</code></a> Merge branch '3.1.x' into 3.2.x</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/5620994bf1087175724f64d8df902d000c5a1c33"><code>5620994</code></a> Upgrade to Spring Framework 6.0.21</li>
+                <li><a href="https://github.com/spring-projects/spring-boot/commit/29dbc047aea5677b24667143af9fdc823c5f0d1a"><code>29dbc04</code></a> Upgrade to Netty 4.1.110.Final</li>
+                <li>Additional commits viewable in <a href="https://github.com/spring-projects/spring-boot/compare/v2.4.5...v3.2.6">compare view</a></li>
+                </ul>
+                </details>
+                <br />
+            commit-message: |-
+                Bump org.springframework.boot:spring-boot-starter-parent
+
+                Bumps [org.springframework.boot:spring-boot-starter-parent](https://github.com/spring-projects/spring-boot) from 2.4.5 to 3.2.6.
+                - [Release notes](https://github.com/spring-projects/spring-boot/releases)
+                - [Commits](https://github.com/spring-projects/spring-boot/compare/v2.4.5...v3.2.6)
     - type: mark_as_processed
       expect:
         data:
