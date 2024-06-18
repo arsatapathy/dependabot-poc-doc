@@ -1675,3 +1675,8 @@ output:
 
 ### PR
 [# Bump org.springframework.boot:spring-boot-starter-parent from 2.2.4.RELEASE to 3.3.0 #1](https://github.com/arsatapathy/spring-boot-security-jwt-demo/pull/1)
+
+### Preloading images 
+`go/bin/dependabot update -f code/depupgrade/input.yaml -o code/depupgrade/test-output.yaml --proxy-image ghcr.io/github/dependabot-update-job-proxy/dependabot-update-job-proxy:v2.0.20240419172112`
+
+- If the image is preloaded then the cli won't download it 
