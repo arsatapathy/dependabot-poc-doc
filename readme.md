@@ -1680,3 +1680,40 @@ output:
 `go/bin/dependabot update -f code/depupgrade/input.yaml -o code/depupgrade/test-output.yaml --proxy-image ghcr.io/github/dependabot-update-job-proxy/dependabot-update-job-proxy:v2.0.20240419172112`
 
 - If the image is preloaded then the cli won't download it 
+
+### Intercepting dependabot proxy 
+```
+start container
+===============
+docker run --rm -it --add-host host.docker.internal:host-gateway -p 8080:8080 -p 8081:8081 mitmproxy/mitmproxy mitmweb --web-host 0.0.0.0
+
+
+copy certificates from proxy container 
+======================================
+docker cp <container-id>:/home/mitmproxy/.mitmproxy/mitmproxy-ca-cert.pem /home/ec2-user/dependabot/mitmproxy-ca-cert.pem
+
+proxy image
+===========
+# Use the Dependabot proxy base image
+FROM ghcr.io/github/dependabot-update-job-proxy/dependabot-update-job-proxy:latest 
+
+# Set proxy environment variables to point to your existing mitmproxy instance
+ENV http_proxy=http://host.docker.internal:8080
+ENV https_proxy=http://host.docker.internal:8080
+
+# Certificates
+RUN mkdir -p /usr/local/share/ca-certificates
+COPY mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
+RUN update-ca-certificates
+
+docker build 
+============
+docker build -f proxy.Dockerfile -t dependabot-proxy-with-mitm .
+
+dependabot update
+=================
+dependabot update -f input.yaml -o output.yaml --proxy-image dependabot-proxy-with-mitm:latest
+```
+
+
+![[mitmproxy.png]]
